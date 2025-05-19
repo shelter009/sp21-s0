@@ -1,26 +1,26 @@
 package deque;
 
-public class ArrayDeque {
-    int[] items;
+public class ArrayDeque<T> {
+    T[] items;
     int size;
     int nextFirst;
     int nextLast;
 
     public ArrayDeque(){
-        items = new int[8];
+        items = (T[])new Object[8];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
     }
 
-    public void addFirst(int x){
+    public void addFirst(T x){
         items[nextFirst] = x;
         nextFirst = (nextFirst - 1 + items.length) % (items.length);
         size++;
         IncLen();
     }
 
-    public void addLast(int x){
+    public void addLast(T x){
         items[nextLast] = x;
         nextLast = (nextLast + 1) % (items.length);
         size++;
@@ -48,9 +48,9 @@ public class ArrayDeque {
         System.out.println(items[l]);
     }
 
-    public int removeFirst(){
+    public T removeFirst(){
         if (isEmpty())
-            return 0;
+            return null;
         else{
             DecLen();
             size--;
@@ -59,9 +59,9 @@ public class ArrayDeque {
         }
     }
 
-    public int removeLast(){
+    public T removeLast(){
         if (isEmpty())
-            return 0;
+            return null;
         else{
             DecLen();
             nextLast = (nextLast - 1 + items.length) % items.length;
@@ -70,14 +70,14 @@ public class ArrayDeque {
         }
     }
 
-    public int get(int x){
+    public T get(int x){
         if (x > size - 1)
-            return 0;
+            return null;
         return items[(nextFirst + x + 1) % items.length];
     }
 
-    public int getRecursive(){
-        return 0;
+    public T getRecursive(){
+        return null;
     };
 
     private void IncLen(){
@@ -91,9 +91,9 @@ public class ArrayDeque {
     }
 
     private void ResizeArray(double factor){
-        int[] temps;
+        T[] temps;
         temps = items;
-        items = new int[(int) (temps.length * factor)];
+        items = (T[])new Object[(int) (temps.length * factor)];
         int l = (nextFirst + 1) % temps.length;
         int r = (nextLast + temps.length - 1) % temps.length;
         int i = 0;
@@ -110,7 +110,7 @@ public class ArrayDeque {
     /*public static void main(String[] args){
         ArrayDeque A = new ArrayDeque();
         A.addFirst(12);
-        A.addFirst(123);
+        A.addFirst("er");
         A.addLast(1);
         A.addLast(3);
         A.addLast(5);
