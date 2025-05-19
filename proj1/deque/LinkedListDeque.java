@@ -1,7 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
-
+public class LinkedListDeque<T> implements Deque<T>{
     LinkNode head;
     //LinkNode last;
     int size = 0;
@@ -113,7 +112,7 @@ public class LinkedListDeque<T> {
     }
 
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         LinkedListDeque L = new LinkedListDeque();
         L.addFirst("fdfdf");
         L.addLast(12);
@@ -121,5 +120,5 @@ public class LinkedListDeque<T> {
         System.out.println(L.get(4));
         L.printDeque();
         //L.removeLast();
-    }
+    }*/
 }
