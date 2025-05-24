@@ -26,7 +26,7 @@ public class Dog { // TODO
      * @param breed Breed of dog
      * @param age Age of dog
      */
-    public Dog(String name, String breed, int age) {
+    public Dog (String name, String breed, int age) {
         this.age = age;
         this.breed = breed;
         this.name = name;
@@ -40,7 +40,10 @@ public class Dog { // TODO
      */
     public static Dog fromFile(String name) {
         // TODO (hint: look at the Utils file)
-        return null;
+        //String cwd = System.getProperty("user.dir");
+        File f = new File(".capters/dogs/" + name );
+        Dog dog = readObject(f, Dog.class);
+        return dog;
     }
 
     /**
@@ -57,6 +60,12 @@ public class Dog { // TODO
      */
     public void saveDog() {
         // TODO (hint: don't forget dog names are unique)
+        File f = new File("./capters/dogs/" + "this.name");
+        if (!f.exists()){
+            f.creatNewFile();
+            writeObject(f, this);
+        }
+
     }
 
     @Override
