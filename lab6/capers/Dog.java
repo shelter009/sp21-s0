@@ -61,7 +61,6 @@ public class Dog implements Serializable{ // TODO
      */
     public void saveDog() {
         // TODO (hint: don't forget dog names are unique)
-        System.out.println(System.getProperty("user.dir"));
         File f = new File(".capers/dogs/" + this.name);
         if (!f.exists()){
             try {
