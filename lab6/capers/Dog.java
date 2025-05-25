@@ -1,13 +1,14 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import static capers.Utils.*;
 
 /** Represents a dog that can be serialized.
  * @author TODO
 */
-public class Dog { // TODO
+public class Dog implements Serializable{ // TODO
 
     /** Folder that dogs live in. */
     static final File DOG_FOLDER = null; // TODO (hint: look at the `join`
@@ -38,10 +39,10 @@ public class Dog { // TODO
      * @param name Name of dog to load
      * @return Dog read from file
      */
-    public static Dog fromFile(String name) {
+    public static Dog fromFile (String name) {
         // TODO (hint: look at the Utils file)
         //String cwd = System.getProperty("user.dir");
-        File f = new File(".capters/dogs/" + name );
+        File f = new File(".capers/dogs/" + name );
         Dog dog = readObject(f, Dog.class);
         return dog;
     }
@@ -60,9 +61,18 @@ public class Dog { // TODO
      */
     public void saveDog() {
         // TODO (hint: don't forget dog names are unique)
-        File f = new File("./capters/dogs/" + "this.name");
+        System.out.println(System.getProperty("user.dir"));
+        File f = new File(".capers/dogs/" + this.name);
         if (!f.exists()){
-            f.creatNewFile();
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            writeObject(f, this);
+        }
+        else
+        {
             writeObject(f, this);
         }
 

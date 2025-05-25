@@ -27,7 +27,7 @@ PYTHON = python3
 # Flags to pass to tester.py.
 TESTER_FLAGS =
 
-RMAKE = "$(MAKE)"
+RMAKE = make
 
 # Targets that don't correspond to files, but are to be treated as commands.
 .PHONY: default check clean

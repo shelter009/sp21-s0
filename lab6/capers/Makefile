@@ -27,7 +27,7 @@ CLASSDIR = ../classes
 # See comment in ../Makefile
 PYTHON = python3
 
-RMAKE = "$(MAKE)"
+RMAKE = make
 
 # A CLASSPATH value that (seems) to work on both Windows and Unix systems.
 # To Unix, it looks like ..:$(CLASSPATH):JUNK and to Windows like

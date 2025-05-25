@@ -1,6 +1,8 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -18,7 +20,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
+    static final File CAPERS_FOLDER = Utils.join(CWD, ".capers"); // TODO Hint: look at the `join`
                                             //      function in Utils
 
     /**
@@ -32,6 +34,16 @@ public class CapersRepository {
      */
     public static void setupPersistence() {
         // TODO
+        File f1 = Utils.join(CAPERS_FOLDER, "dogs");
+        File f2 = Utils.join(CAPERS_FOLDER, "story");
+        f1.mkdirs();
+        if (!f2.exists()) {
+            try {
+                f2.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -41,6 +53,16 @@ public class CapersRepository {
      */
     public static void writeStory(String text) {
         // TODO
+        File f = Utils.join(CAPERS_FOLDER, "story");
+        if (f.length() == 0){
+            System.out.println(text);
+            writeContents(f, text + "\n");
+        }
+        else {
+            String pretext = readContentsAsString(f);
+            writeContents(f, pretext, text + "\n");
+            System.out.println(pretext + text);
+        }
     }
 
     /**
@@ -48,8 +70,9 @@ public class CapersRepository {
      * three non-command arguments of args (name, breed, age).
      * Also prints out the dog's information using toString().
      */
-    public static void makeDog(String name, String breed, int age) {
+    public static Dog makeDog(String name, String breed, int age) {
         // TODO
+        return new Dog(name, breed, age);
     }
 
     /**
@@ -60,5 +83,8 @@ public class CapersRepository {
      */
     public static void celebrateBirthday(String name) {
         // TODO
+        Dog dog = Dog.fromFile(name);
+        dog.haveBirthday();
+        dog.saveDog();
     }
 }
