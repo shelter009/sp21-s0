@@ -12,6 +12,6 @@ public class BSTTest {
         Map.put("hgh", 83);
         Map.put("ty", 34);
         Map.printInOrder();
-        System.out.println(Map.size());
+        System.out.println(Map.containsKey("wd"));
     }
 }
