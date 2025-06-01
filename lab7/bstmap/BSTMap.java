@@ -16,10 +16,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
 
     @Override
     public boolean containsKey(K key) {
+        if (key == null)
+            return false;
         return researchKey(root, key) != null;
     }
 
-    public V researchKey(Node node, K k){
+    private V researchKey(Node node, K k){
         if (node == null){
             return null;
         }
@@ -52,8 +54,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     @Override
     public void put(K key, V value) {
         root = setItem(root, key, value);
+        size += 1;
     }
-    public Node setItem(Node n, K key, V val){
+    private Node setItem(Node n, K key, V val){
         if (n == null){
             return new Node(key, val);
         }
@@ -68,7 +71,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return n;
     }
 
-    public void midOrder(Node node, ArrayList<K> L){
+    private void midOrder(Node node, ArrayList<K> L){
         if (node == null)
             return;
         midOrder(node.left, L);
@@ -83,7 +86,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return Set.copyOf(L);
     }
 
-    public void printOrder(){
+    public void printInOrder(){
         for(K i : this){
             System.out.println(i);
         }

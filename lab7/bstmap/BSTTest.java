@@ -11,6 +11,7 @@ public class BSTTest {
         Map.put("ad", 56);
         Map.put("hgh", 83);
         Map.put("ty", 34);
-        Map.printOrder();
+        Map.printInOrder();
+        System.out.println(Map.size());
     }
 }
