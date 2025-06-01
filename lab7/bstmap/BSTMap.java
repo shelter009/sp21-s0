@@ -29,7 +29,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         if (node == null){
             return null;
         }
-        if (node.key == k){
+        if (node.key.compareTo(k) == 0){
             return node.val;
         }
         else if (node.key.compareTo(k) > 0){
