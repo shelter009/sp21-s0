@@ -25,12 +25,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return researchKey(root, key) != null;
     }
 
-    private V researchKey(Node node, K k){
+    private Node researchKey(Node node, K k){
         if (node == null){
             return null;
         }
         if (node.key.compareTo(k) == 0){
-            return node.val;
+            return node;
         }
         else if (node.key.compareTo(k) > 0){
             return researchKey(node.left, k);
@@ -46,7 +46,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         if ( !containsKey(key) )
             return null;
         else{
-            return researchKey(root, key);
+            return researchKey(root, key).val;
         }
     }
 
@@ -99,7 +99,70 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        Node node = researchKey(root, key);
+        V temp = node.val;
+        Node parent = findParent(node);
+        if (node.left == null || node.right == null)
+            deleteSingleChildNode(node);
+        else{
+            Node child = findMaxChild(node);
+            node.key = child.key;
+            node.val = child.val;
+            deleteSingleChildNode(child);
+        }
+        this.size -= 1;
+        return temp;
+    }
+
+    private void deleteSingleChildNode(Node n) {
+        Node node = researchKey(root, n.key);
+        Node parent = findParent(node);
+        if (parent == null){
+            if (node.right != null)
+                this.root = node.right;
+            else
+                this.root = node.left;
+        }
+        else if (node.right == null) {
+            if (parent.key.compareTo(n.key) > 0)
+                parent.left = node.left;
+            else
+                parent.right = node.left;
+        }
+        else if(node.left == null){
+            if (parent.key.compareTo(n.key) > 0)
+                parent.left = node.right;
+            else
+                parent.right = node.right;
+        }
+    }
+
+    private Node findMaxChild(Node node) {
+        Node p = node.left;
+        while (p.right != null)
+            p = p.right;
+        return p;
+    }
+
+    private Node findParent(Node node) {
+        Node cur = root;
+        Node prev = cur;
+        if (node.key.compareTo(root.key) == 0)
+            return null;
+        while ( cur != null){
+            int cmp = cur.key.compareTo(node.key);
+            if (cmp > 0) {
+                prev = cur;
+                cur = cur.left;
+            }
+            else if (cmp < 0) {
+                prev = cur;
+                cur = cur.right;
+            }
+            else
+                return prev;
+        }
+        return null;
     }
 
     @Override
